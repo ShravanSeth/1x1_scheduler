@@ -1,0 +1,82 @@
+.app {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 130vh;
+  background: #000;
+  background-size: cover;
+  background-position: center;
+}
+
+.yoga {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: url(https://s-media-cache-ak0.pinimg.com/564x/c0/81/fb/c081fbbf72cc63ba3366d3f1c0ca1b19.jpg) 50% 50% no-repeat;
+  background-size: contain;
+  width: 70vw;
+  max-width: 900px;
+  height: 50vw;
+  max-height: 425px;
+  -webkit-animation: 4s floating infinite ease-in-out;
+          animation: 4s floating infinite ease-in-out;
+}
+
+@-webkit-keyframes floating {
+  0% {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+  65% {
+    -webkit-transform: translate(-50%, -60%);
+            transform: translate(-50%, -60%);
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes floating {
+  0% {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+  65% {
+    -webkit-transform: translate(-50%, -60%);
+            transform: translate(-50%, -60%);
+  }
+  100% {
+    -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+  }
+}
+
+form{
+    background-color: white;
+    padding: 0px 60px;
+    border-radius: 10px;
+}
+
+h1,h3{
+    color: black;
+    text-align: center;
+}
+
+
+button{
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+    border: none;
+    background-color: black;
+    color: white;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
