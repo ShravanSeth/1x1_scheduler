@@ -3,6 +3,9 @@ const {
     getUserByUserEmail,
     getUserByUserId,
     getUsers,
+    getAOE,
+    getSlot,
+    getUsersFromAOE,
     updateUser,
     deleteUser
   } = require("./mentor.service");
@@ -91,8 +94,34 @@ const {
         });
       });
     },
+    getAOE: (req, res) => {
+      getAOE((err, results) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        return res.json({
+          success: 1,
+          data: results
+        });
+      });
+    },
+    getSlot: (req, res) => {
+      const body = req.body;
+      getSlot(body.area_of_interest, (err, results) => {
+        if (err) {
+          console.log(err);
+          return;
+        }
+        return res.json({
+          success: 1,
+          data: results
+        });
+      });
+    },
     getUsersFromAOE: (req, res) => {
-      getUsersFromAOE((err, results) => {
+      const body = req.body;
+      getUsersFromAOE(body.area_of_interest, (err, results) => {
         if (err) {
           console.log(err);
           return;

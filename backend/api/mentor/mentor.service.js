@@ -59,9 +59,33 @@ module.exports = {
       }
     );
   },
+  getAOE:callBack => {
+    pool.query(
+      `select distinct(areaOfInterest) from mentor`,
+      [],
+      (error, results, fields) => {
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
   getUsersFromAOE: (area_of_interest, callBack) => {
     pool.query(
       `select id,firstName,lastName,gender,email,areaOfInterest,workExperience from mentor where areaOfInterest = ?`,
+      [area_of_interest],
+      (error, results, fields) => {
+        if (error) {
+          callBack(error);
+        }
+        return callBack(null, results);
+      }
+    );
+  },
+  getSlot: (area_of_interest, callBack) => {
+    pool.query(
+      `  select  mentorId, timeSlot, duration from connect inner join mentor on mentor.areaOfInterest = ? and connect.mentorId = mentor.id where date>= CURDATE() and timeSlot>=CURRENT_TIME()`,
       [area_of_interest],
       (error, results, fields) => {
         if (error) {

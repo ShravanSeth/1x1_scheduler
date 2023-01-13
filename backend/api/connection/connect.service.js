@@ -3,7 +3,7 @@ const pool = require("../../config/database");
 module.exports = {
   connect: (data, callBack) => {
     pool.query(
-      `insert into connect(studentId, mentorId, timeSlot, date, day, duration) 
+      `insert into connect(studentId, mentorId, timeSlot, date, day, duration)
         values(?,?,?,?,?,?)`,
       [
         data.student_id,

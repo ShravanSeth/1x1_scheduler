@@ -7,11 +7,15 @@ const {
   getUserByUserId,
   getUsers,
   getUsersFromAOE,
+  getAOE,
+  getSlot,
   updateUsers,
   deleteUser
 } = require("./mentor.controller");
-router.get("/", checkToken, getUsers);
-router.get("/?area=:area",checkToken, getUsersFromAOE);
+router.get("/", getUsers);
+router.post("/users",getUsersFromAOE);
+router.post("/slot",getSlot);
+router.get("/aoe", getAOE);
 router.post("/", createUser);
 router.get("/:id", checkToken, getUserByUserId);
 router.post("/login", login);
