@@ -4,10 +4,14 @@ import FormInput from "../../components/FormInput/FormInput";
 import Select from "react-select";
 import Service from "../../services/httpService";
 import Modal from 'react-modal';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
-
+  let navigate = useNavigate();
+  const routeChange = (newPath) =>{ 
+    let path = newPath; 
+    navigate(path);
+  }
   //LOADER
   const [loading, setLoading] = useState(false)
   useEffect(() => {
@@ -21,9 +25,13 @@ const Register = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [res, setRes]= useState("")
   const [values, setValues] = useState({
-    username: "",
-    age: "",
-    feesOfMonth: new Date(),
+    first_name: "",
+    last_name: "",
+    gender: "",
+    email:"",
+    area_of_interest:"",
+    work_experience:"",
+    password:"",
     whois: "",
   });
   
@@ -189,13 +197,25 @@ const Register = () => {
     console.log(values)
   };
 
-  const handleSubmit = (e) => {
+  const mentorSubmit = (e) => {
     e.preventDefault();
-    services.post("/fees/payfees",values).then((res)=>{
-      setRes(res.data.message);
+    services.post("api/mentor",values).then((res)=>{
+      routeChange('../login')
       openModal();
     }).catch((res)=>{
-      setRes(res.data.message);
+      console.log(res)
+     setRes(res.data.data);
+      openModal();
+    })
+  };
+
+  const studentSubmit = (e) => {
+    e.preventDefault();
+    services.post("api/student",values).then((res)=>{
+      routeChange('../login')
+    }).catch((res)=>{
+      console.log(res)
+     setRes(res.data.data);
       openModal();
     })
   };
@@ -212,7 +232,7 @@ const Register = () => {
 
       </Modal>
       {loading?
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={values.whois=='student'?studentSubmit:mentorSubmit}>
         <h1>Register</h1>
         <label>Who are you?</label>
         <Select required={true} options={options} name="whois"  onChange={(e) => {
@@ -244,7 +264,7 @@ const Register = () => {
         <h3>Already a User?</h3>
         </Link>
       </form>:
-    <div className="yoga"></div>}
+    <div className="scheduler"></div>}
     </div>
     
   );

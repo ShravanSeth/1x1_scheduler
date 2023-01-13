@@ -4,10 +4,14 @@ import FormInput from "../../components/FormInput/FormInput";
 import Select from "react-select";
 import Service from "../../services/httpService";
 import Modal from 'react-modal';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-
+  let navigate = useNavigate();
+  const routeChange = (newPath) =>{ 
+    let path = newPath; 
+    navigate(path);
+  }
   //LOADER
   const [loading, setLoading] = useState(false)
   useEffect(() => {
@@ -21,10 +25,9 @@ const Login = () => {
   const [modalIsOpen, setIsOpen] = useState(false);
   const [res, setRes]= useState("")
   const [values, setValues] = useState({
-    username: "",
-    age: "",
-    feesOfMonth: new Date(),
-    batch: "",
+    email: "",
+    password: "",
+    whois: "",
   });
   
   //MODAL CSS
@@ -85,13 +88,27 @@ const Login = () => {
     console.log(values)
   };
 
-  const handleSubmit = (e) => {
+  const mentorSubmit = (e) => {
     e.preventDefault();
-    services.post("/fees/payfees",values).then((res)=>{
-      setRes(res.data.message);
+    services.post("api/mentor/login",values).then((res)=>{
+      localStorage.setItem('authorisation',res.data.token)
+      routeChange('../student')
       openModal();
     }).catch((res)=>{
-      setRes(res.data.message);
+      console.log(res)
+     setRes(res.data.data);
+      openModal();
+    })
+  };
+
+  const studentSubmit = (e) => {
+    e.preventDefault();
+    services.post("api/student/login",values).then((res)=>{
+      localStorage.setItem('authorisation',res.data.token)
+      routeChange('../student')
+    }).catch((res)=>{
+      console.log(res)
+     setRes(res.data.data);
       openModal();
     })
   };
@@ -108,11 +125,11 @@ const Login = () => {
 
       </Modal>
       {loading?
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={values.whois=='student'?studentSubmit:mentorSubmit}>
         <h1>Login</h1>
         <label>Who are you?</label>
-        <Select required={true} options={options} name="batch"  onChange={(e) => {
-    setValues({ ...values, batch: e.value });
+        <Select required={true} options={options} name="whois"  onChange={(e) => {
+    setValues({ ...values, whois: e.value });
   }} />
         {inputs.map((input) => (
           <FormInput
@@ -130,7 +147,7 @@ const Login = () => {
         <h3>New User?</h3>
         </Link>
       </form>:
-    <div className="yoga"></div>}
+    <div className="scheduler"></div>}
     </div>
     
   );

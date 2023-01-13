@@ -38,7 +38,7 @@ const Slots = () => {
         <div> 
         </div>
       </form>:
-    <div className="yoga"></div>}
+    <div className="scheduler"></div>}
     </div>
     
   );

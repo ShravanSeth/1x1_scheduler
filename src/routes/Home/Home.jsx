@@ -13,7 +13,6 @@ export const Home = () => {
     </div>
     </Link>
     <div class="versus">
-      <span><img src='assets/logo.png' width={250}/></span>
     </div>
     <Link to={localStorage.getItem('authorisation')?'mentor':'login'} style={{ textDecoration: 'none' }}>
     <div class="side robot">

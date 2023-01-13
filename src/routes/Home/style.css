@@ -62,10 +62,14 @@
   
   .versus {
     position: absolute;
-    width: 20vw;
-    max-height: 20vw;
+    width: 15vw;
+    max-height: 15vw;
     background: #ffffff;
-    border-radius: 50%;
+    background-image: url('logo.png');
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 40%;
     left: 0;
     right: 0;
     bottom: 0;
@@ -73,10 +77,11 @@
     margin: auto;
     align-items: center;
     justify-content: center;
+    font-size: 12vw;
+    color: #123456;
     border-width: 20px;
     border-style: solid;
     border-color: #f3f3f3 #272727 #272727 #f3f3f3;
-    transform: rotate(-45deg);
   }
   
   .versus span {
